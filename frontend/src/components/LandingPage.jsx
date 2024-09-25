@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { motion } from 'framer-motion';
+import { Link } from "react-router-dom";
 import { Search, MapPin, Briefcase, TrendingUp, Menu, Globe } from 'lucide-react'
 
 const content = {
   en: {
-    nav: ['Home', 'Jobs', 'About', 'Contact'],
+    nav: [{name:'Home', href:""},  {name:'About',href:"/about"}, {name:"Jobs", href:"/jobslisting"}, {name:'Contact', href:"/contact"}],
     hero: {
       title: 'Find Your Dream Job Nearby',
       subtitle: 'Discover exciting career opportunities in your local area with RozgarSeva',
@@ -32,7 +33,7 @@ const content = {
     footer: '© 2024 RozgarSeva.',
   },
   hi: {
-    nav: ['होम', 'नौकरियाँ', 'हमारे बारे में', 'संपर्क करें'],
+    nav: [{name:'होम', href:""}, {name:'हमारे बारे में', href:"/about"}, {name:'संपर्क करें', href:"/contact"}],
     hero: {
       title: 'अपने आस-पास अपना सपनों का काम खोजें',
       subtitle: 'रोज़गारसेवा के साथ अपने स्थानीय क्षेत्र में रोमांचक करियर के अवसर खोजें',
@@ -176,13 +177,13 @@ export default function LandingPage() {
           transition={{ duration: 0.5, delay: 0.7 }}
         >
           <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">{content[language].cta.title}</h3>
-         <a href=""> <motion.button 
+          <motion.button 
             className="bg-orange-500 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-full text-base sm:text-lg font-semibold hover:bg-orange-600 transition-colors"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-           {content[language].cta.button} 
-          </motion.button> </a>
+           <Link to="/signup">{content[language].cta.button} </Link>
+          </motion.button>
         </motion.section>
       </main>
 
@@ -239,7 +240,7 @@ function NavLinks({ language, className = "space-x-4" }) {
   return (
     <div className={className}>
       {content[language].nav.map((item, index) => (
-        <a key={index} href="#" className="text-gray-600 hover:text-orange-600 transition-colors">{item}</a>
+        <a key={index} href={item.href} className="text-gray-600 hover:text-orange-600 transition-colors">{item.name}</a>
       ))}
     </div>
   )

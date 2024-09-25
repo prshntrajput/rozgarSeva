@@ -1,0 +1,14 @@
+#node mudules
+node_modules
+
+#environment file
+.env
+
+#middleware file
+middleware.js
+
+#config file
+config.js
+
+#middleware folder
+middleware
