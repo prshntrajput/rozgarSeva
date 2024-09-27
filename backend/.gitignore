@@ -5,10 +5,9 @@ node_modules
 .env
 
 #middleware file
-middleware.js
+
 
 #config file
-config.js
 
 #middleware folder
 middleware
