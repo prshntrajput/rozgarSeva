@@ -29,8 +29,8 @@ export default function LoginPage() {
     try {
       const response = await axios.post('http://localhost:8080/api/login', formData);
       localStorage.setItem("token", response.data.token);
-      console.log(response.data)
-      console.log("JWT Token:", response.data.token);
+      
+     
       alert("login successful"),
       navigate("/jobs");
     } catch (error) {

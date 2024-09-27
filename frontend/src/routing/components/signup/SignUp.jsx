@@ -9,7 +9,7 @@ export default function SignupPage() {
     name: '',
     email: '',
     password: '',
-    location: ''
+    pincode: ''
   })
 
   const [error, setError] = useState('');
@@ -30,8 +30,7 @@ export default function SignupPage() {
       const response = await axios.post('http://localhost:8080/api/users', formData);
       const token = response.data.token;
       localStorage.setItem('token', token);
-      console.log(response)
-      console.log(token);
+      
       navigate("/profile"); // Redirect to home or another route
     } catch (err) {
       setError(err);
@@ -131,24 +130,24 @@ export default function SignupPage() {
                 />
               </div>
             </motion.div>
-            {/**<motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <label htmlFor="location" className="sr-only">Location</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <MapPin className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
-                  id="location"
-                  name="location"
+                  id="pincode"
+                  name="pincode"
                   type="text"
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm transition-all duration-300"
-                  placeholder="Location"
-                  value={formData.location}
+                  placeholder="Pincode"
+                  value={formData.pincode}
                   onChange={handleChange}
                 />
               </div>
-            </motion.div>**/}
+            </motion.div>
           </div>
 
           <div>

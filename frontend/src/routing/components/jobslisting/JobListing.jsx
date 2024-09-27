@@ -10,7 +10,9 @@ const JobListingForm = () => {
     jobDescription: '',
     phoneNo: '',
     address: '',
+    pincode:"",
     category: '',
+    
   });
 
   const [message, setMessage] = useState(null);
@@ -43,7 +45,7 @@ const JobListingForm = () => {
       );
 
       setMessage('Job posted successfully!');
-      console.log(response.data);
+      
     } catch (error) {
       console.error(error.response ? error.response.data : error.message);
       setMessage(error.response ? error.response.data : 'Something went wrong!');
@@ -133,6 +135,15 @@ const JobListingForm = () => {
               label="Address"
               name="address"
               value={jobData.address}
+              onChange={handleChange}
+            />
+
+            <InputField
+              icon={<MapPin className="h-5 w-5 text-gray-400" />}
+              label="Pincode"
+              name="pincode"
+            
+              value={jobData.pincode}
               onChange={handleChange}
             />
 

@@ -1,3 +1,4 @@
+const { required } = require('joi');
 const mongoose = require('mongoose');
 
 // Job Schema
@@ -6,6 +7,7 @@ const jobSchema = new mongoose.Schema({
   projectOwnerName:{type:String, required:true},  
   jobDescription: { type: String, required: true },
   phoneNo:{type:String, required:true},
+  pincode:{type:Number, required:true},
   /**location: {
     lat: { type: Number, required: true },
     lng: { type: Number, required: true }

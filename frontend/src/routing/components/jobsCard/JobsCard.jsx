@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { MapPin, Calendar, ChevronRight, Briefcase, CircleUserRound  } from 'lucide-react'
+import { MapPin, Calendar, ChevronRight, Briefcase, CircleUserRound, User  } from 'lucide-react'
 import axios from 'axios'
 
 /**const jobsData = [
@@ -40,7 +40,7 @@ const JobsHomePage = () => {
     try {
       const response = await axios.get("http://localhost:8080/api/jobs");
       setJobData(response.data)
-      console.log(response.data)
+      
       
     } catch (error) {
       console.log(error.message)
@@ -96,6 +96,10 @@ const JobCard = ({ job, index }) => {
           </motion.span>
         </motion.div>
         <h2 className="text-xl font-bold text-gray-800 mb-2">{job.projectName}</h2>
+        <p className="text-gray-600 mb-2 flex items-center">
+          <User className="mr-2 h-4 w-4 text-orange-500" />
+          {job.projectOwnerName}
+        </p>
         <div className="flex items-center text-gray-600 mb-2">
           <MapPin className="h-4 w-4 mr-1 text-orange-500" />
           <span className="text-sm">{job.address}</span>

@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
   name: { type: String,minlength:5, maxlenght:240,required: true },
   email: { type: String, required: true, minlenght:5,maxlenght:240, unique: true },
   password: { type: String, minlenght:5, maxlength:1024, required: true },
+  pincode:{type:Number, required:true},
   location: {
     lat: { type: Number },
     lng: { type: Number }

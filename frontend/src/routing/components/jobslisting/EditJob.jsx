@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import { Briefcase, User, FileText, Phone, MapPin, Tag } from 'lucide-react';
-import { useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 
 const JobListingForm = () => {
   const [jobData, setJobData] = useState({
@@ -15,6 +15,7 @@ const JobListingForm = () => {
   });
     
    const { id } = useParams();
+   const navigate = useNavigate();
 
   const [message, setMessage] = useState(null);
 
@@ -46,12 +47,33 @@ const JobListingForm = () => {
       );
 
       setMessage('Job posted successfully!');
-      console.log(response.data);
+      
     } catch (error) {
       console.error(error.response ? error.response.data : error.message);
       setMessage(error.response ? error.response.data : 'Something went wrong!');
     }
   };
+
+  const handleDelete =async ()=>{
+    try {
+           const token = localStorage.getItem('token');
+         await axios.delete(`http://localhost:8080/api/jobs/${id}`,
+            {
+                headers: {
+                  'x-auth-token': token,
+                }
+            }
+         );
+         
+         alert("job deleted successfully")
+         navigate("/userjobslisting");
+        
+    } catch (error) {
+        console.log(error)
+    }
+   
+    
+  }
 
   return (
     <motion.div
@@ -156,6 +178,15 @@ const JobListingForm = () => {
               Post Job
             </motion.button>
           </form>
+
+          <motion.button onClick={handleDelete}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              type="submit"
+              className="w-full mt-4 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+            >
+              Delete Job
+            </motion.button>
         </div>
       </motion.div>
     </motion.div>

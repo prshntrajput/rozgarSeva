@@ -27,6 +27,7 @@ export default function Profile  () {
                     "x-auth-token": token,
                 }
             })
+            
             setUser(response.data)
         
 
@@ -67,13 +68,13 @@ export default function Profile  () {
               <Mail className="h-5 w-5 mr-2 text-orange-500" />
               <span className="text-sm">{user?.email}</span>
             </div>
-            <div className="flex items-center text-gray-600">
+           {/**  <div className="flex items-center text-gray-600">
               <Phone className="h-5 w-5 mr-2 text-orange-500" />
-              <span className="text-sm">00000</span>
-            </div>
+              <span className="text-sm">{user?.phoneno}</span>
+            </div>**/}
             <div className="flex items-center text-gray-600">
               <MapPin className="h-5 w-5 mr-2 text-orange-500" />
-              <span className="text-sm">pppppppp</span>
+              <span className="text-sm">{user?.pincode}</span>
             </div>
           </div>
           <div className="mt-6">

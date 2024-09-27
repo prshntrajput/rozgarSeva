@@ -8,6 +8,8 @@ import { Link, useNavigate } from 'react-router-dom';
 function JobListingCard({ job, index, userId }) {
 
 
+
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -44,7 +46,7 @@ function JobListingCard({ job, index, userId }) {
         </p>
         <p className="flex items-center mb-1">
           <Calendar className="mr-2 h-4 w-4 text-orange-500" />
-          Posted on: {new Date(job.postedDate).toLocaleDateString()}
+          Posted on: {new Date(job.datePosted).toLocaleDateString()}
         </p>
         <p className="flex items-center">
           <Users className="mr-2 h-4 w-4 text-orange-500" />
@@ -86,7 +88,7 @@ export default function UserJobListings() {
     const getUserJobs = async () => {
       try {
         const response = await axios.get(`http://localhost:8080/api/jobs/${userId}`);
-        console.log(response.data);
+        
         setJob(response.data);
       } catch (error) {
         console.log(error.message);
