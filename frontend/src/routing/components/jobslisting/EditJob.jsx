@@ -37,7 +37,7 @@ const JobListingForm = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/jobs/${id}/edit`,
+        `https://rozgarseva.onrender.com/api/jobs/${id}/edit`,
         jobData,
         {
           headers: {
@@ -57,7 +57,7 @@ const JobListingForm = () => {
   const handleDelete =async ()=>{
     try {
            const token = localStorage.getItem('token');
-         await axios.delete(`http://localhost:8080/api/jobs/${id}`,
+         await axios.delete(`https://rozgarseva.onrender.com/api/jobs/${id}`,
             {
                 headers: {
                   'x-auth-token': token,

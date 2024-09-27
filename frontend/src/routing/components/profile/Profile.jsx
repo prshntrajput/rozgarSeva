@@ -22,7 +22,7 @@ export default function Profile  () {
             const token = localStorage.getItem("token");
             if(!token) { throw new Error("No token found. Please login again.");}
 
-            const response = await axios.get("http://localhost:8080/api/users/me",{
+            const response = await axios.get("https://rozgarseva.onrender.com/api/users/me",{
                 headers:{
                     "x-auth-token": token,
                 }

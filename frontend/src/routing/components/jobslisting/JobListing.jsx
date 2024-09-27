@@ -35,7 +35,7 @@ const JobListingForm = () => {
 
     try {
       const response = await axios.post(
-        'http://localhost:8080/api/jobs',
+        'https://rozgarseva.onrender.com/api/jobs',
         jobData,
         {
           headers: {
