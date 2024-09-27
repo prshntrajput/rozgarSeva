@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import { Briefcase, User, FileText, Phone, MapPin, Tag } from 'lucide-react';
+import { useParams } from 'react-router-dom';
 
 const JobListingForm = () => {
   const [jobData, setJobData] = useState({
@@ -12,6 +13,8 @@ const JobListingForm = () => {
     address: '',
     category: '',
   });
+    
+   const { id } = useParams();
 
   const [message, setMessage] = useState(null);
 
@@ -32,8 +35,8 @@ const JobListingForm = () => {
     }
 
     try {
-      const response = await axios.post(
-        'http://localhost:8080/api/jobs',
+      const response = await axios.put(
+        `http://localhost:8080/api/jobs/${id}/edit`,
         jobData,
         {
           headers: {

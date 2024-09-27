@@ -1,86 +1,131 @@
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { Search, MapPin, Briefcase } from 'lucide-react'
+import { MapPin, Calendar, ChevronRight, Briefcase, CircleUserRound  } from 'lucide-react'
+import axios from 'axios'
 
-const jobsData = [
+/**const jobsData = [
   {
     id: 1,
     title: 'Plumber Needed',
     location: 'Mumbai, Maharashtra',
     description: 'Experienced plumber required for residential project. Must have own tools.',
     postedDate: '2023-06-15',
+    category: 'Plumbing',
   },
-  // Add more job listings here as needed
-]
+  {
+    id: 2,
+    title: 'Electrician Wanted',
+    location: 'Delhi, NCR',
+    description: 'Skilled electrician needed for commercial wiring project. 5+ years experience required.',
+    postedDate: '2023-06-18',
+    category: 'Electrical',
+  },
+  {
+    id: 3,
+    title: 'Carpenter for Furniture Assembly',
+    location: 'Bangalore, Karnataka',
+    description: 'Experienced carpenter needed for custom furniture assembly. Attention to detail is crucial.',
+    postedDate: '2023-06-20',
+    category: 'Carpentry',
+  },
+]**/
 
-export default function JobsHomePage() {
-  const [searchTerm, setSearchTerm] = useState('')
+const JobsHomePage = () => {
+ 
 
-  const filteredJobs = jobsData.filter(job =>
-    job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    job.location.toLowerCase().includes(searchTerm.toLowerCase())
-  )
+  const [jobData,setJobData]= useState([]);
+  
+  useEffect(()=>{
+    const jobList= async ()=>{
+    try {
+      const response = await axios.get("http://localhost:8080/api/jobs");
+      setJobData(response.data)
+      console.log(response.data)
+      
+    } catch (error) {
+      console.log(error.message)
+    }}
+    jobList();
+  },[])
+
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-orange-100 to-orange-200">
-      <header className="bg-white shadow-md">
-        <div className="container mx-auto px-4 py-6">
-          <h1 className="text-3xl font-bold text-gray-800">RozgarSeva Jobs</h1>
-        </div>
-      </header>
-
-      <main className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search jobs by title or location"
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-          </div>
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {filteredJobs.map(job => (
-            <JobCard key={job.id} job={job} />
-          ))}
-        </div>
-      </main>
+    <div className="min-h-screen bg-gradient-to-br from-orange-100 via-orange-200 to-orange-300 py-12 px-4 sm:px-6 lg:px-8">
+      <motion.h1
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="text-4xl font-bold text-center text-gray-800 mb-12"
+      >
+        Exciting Job Opportunities
+      </motion.h1>
+      <div className="max-w-7xl mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {jobData.map((job, index) => (
+          <JobCard key={job.id} job={job} index={index} />
+        ))}
+      </div>
     </div>
   )
 }
 
-function JobCard({ job }) {
+const JobCard = ({ job, index }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="bg-white rounded-lg shadow-md overflow-hidden"
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      whileHover={{ y: -5, transition: { duration: 0.2 } }}
+      className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
     >
       <div className="p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-2">{job.title}</h2>
-        <div className="flex items-center text-gray-600 mb-2">
-          <MapPin className="h-4 w-4 mr-1" />
-          <span className="text-sm">{job.location}</span>
-        </div>
-        <p className="text-gray-600 mb-4">{job.description}</p>
-        <div className="flex items-center justify-between">
-          <span className="text-sm text-gray-500">
-            Posted on {new Date(job.postedDate).toLocaleDateString()}
+        <motion.div
+          initial={{ scale: 0.9 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.3 }}
+          className="flex items-center justify-between mb-4"
+        >
+          <span className="text-xs font-semibold px-2 py-1 bg-orange-100 text-orange-800 rounded-full">
+            {job.category}
           </span>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition-colors"
+          <motion.span 
+            whileHover={{ rotate: 360 }}
+            transition={{ duration: 0.5 }}
+            className="text-orange-500"
           >
-            Apply Now
-          </motion.button>
+            <Briefcase size={20} />
+          </motion.span>
+        </motion.div>
+        <h2 className="text-xl font-bold text-gray-800 mb-2">{job.projectName}</h2>
+        <div className="flex items-center text-gray-600 mb-2">
+          <MapPin className="h-4 w-4 mr-1 text-orange-500" />
+          <span className="text-sm">{job.address}</span>
         </div>
+        <div className="flex items-center text-gray-500 mb-4">
+          <CircleUserRound  className="h-4 w-4 mr-1 text-orange-500" />
+          <span className="text-xs">Contact : {job.phoneNo}</span>
+        </div>
+        <p className="text-gray-600 mb-4 text-sm">{job.jobDescription}</p>
+        <div className="flex items-center text-gray-500 mb-4">
+          <Calendar className="h-4 w-4 mr-1 text-orange-500" />
+          <span className="text-xs">Posted on {new Date(job.datePosted).toLocaleDateString()}</span>
+        </div>
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="w-full bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition-colors duration-300 flex items-center justify-center group"
+        >
+          Apply Now
+          <motion.span
+            initial={{ x: 0 }}
+            animate={{ x: 5 }}
+            transition={{ repeat: Infinity, duration: 0.8, repeatType: "reverse" }}
+          >
+            <ChevronRight className="ml-2 h-4 w-4" />
+          </motion.span>
+        </motion.button>
       </div>
     </motion.div>
   )
 }
+
+export default JobsHomePage;

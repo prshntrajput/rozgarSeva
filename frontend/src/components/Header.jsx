@@ -5,8 +5,7 @@ import { Menu, X } from 'lucide-react'
 
 const navItems = [
   { name: 'Home', href: '/' },
-  { name: 'Jobs', href: '/jobs' },
-  { name: 'Job Listings', href: '/job-listings' },
+  { name: 'Job Listings', href: '/userjobslisting' },
   { name: 'Contact', href: '/contact' },
 ]
 
@@ -26,7 +25,7 @@ export default function Header() {
   return (
     <motion.header
       className={`fixed top-0 left-0 right-0 z-50 ${
-        scrolled ? 'bg-white shadow-md' : 'bg-transparent'
+        scrolled ? 'bg-white shadow-md' : 'bg-white shadow-md'
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -39,7 +38,7 @@ export default function Header() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Link href="/" className="font-bold text-xl text-orange-600">
+            <Link to="/" className="font-bold text-xl text-orange-600">
               RozgarSeva
             </Link>
           </motion.div>
@@ -48,7 +47,7 @@ export default function Header() {
               {navItems.map((item) => (
                 <motion.li key={item.name} whileHover={{ y: -2 }}>
                   <Link
-                    href={item.href}
+                    to={item.href}
                     className="text-gray-800 hover:text-orange-600 px-3 py-2 rounded-md text-sm font-medium"
                   >
                     {item.name}
@@ -83,7 +82,7 @@ export default function Header() {
                 whileTap={{ scale: 0.95 }}
               >
                 <Link
-                  href={item.href}
+                  to={item.href}
                   className="text-gray-800 hover:text-orange-600 block px-3 py-2 rounded-md text-base font-medium"
                   onClick={() => setIsOpen(false)}
                 >

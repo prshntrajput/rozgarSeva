@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Home, Briefcase, FileText, User, MessageSquare } from 'lucide-react'
 
-export default function BottomNav() {
+export default function NavBar() {
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg">
       <div className="container mx-auto px-4">

@@ -7,6 +7,8 @@ const middleware = require("./utils/middleware")
 const mongoose = require("mongoose");
 const userRouter = require("./controllers/users")
 const loginRouter = require("./controllers/login")
+const jobRouter = require("./controllers/job")
+
 
 
 //mongoose connection
@@ -23,6 +25,7 @@ app.use(express.json());
 //routes
 app.use("/api/users", userRouter);
 app.use("/api/login", loginRouter);
+app.use("/api/jobs", jobRouter);
 
 
 //middlewares

@@ -1,6 +1,4 @@
-const jwt = require("jsonwebtoken")
 const loginRouter = require("express").Router();
-const config = require("../utils/config");
 const bcrypt = require("bcrypt");
 const auth = require("../middleware/authMiddleware");
 const User = require("../models/user");
@@ -18,7 +16,12 @@ loginRouter.post("/", async (req,res)=>{
   if (!validPassword) return res.status(400).send("Invalid password");
 
   const token = user.generateAuthToken();
-  res.send(token);
+  res.header("x-auth-token", token).send({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            token: token, // You can also send the token in the response body
+        });
 
 
 

@@ -12,6 +12,8 @@ const userSchema = new mongoose.Schema({
     lng: { type: Number }
   },
   bio: String,
+  jobsPosted: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Job' }],
+  jobsApplied: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Job' }],
 });
 
 userSchema.methods.generateAuthToken = function (){
@@ -27,12 +29,12 @@ const User = mongoose.model('User', userSchema);
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }]**/
 
    
- /**   const schema = Joi.object({
+ /**  const schema = Joi.object({
       name: Joi.string().min(4).max(240).required(),
       email: Joi.string().email().min(4).max(240).required(),
       password: Joi.string().min(8).max(244).required()
     });**/
+
   
 
 module.exports = User;
-/**module.exports=schema;**/
