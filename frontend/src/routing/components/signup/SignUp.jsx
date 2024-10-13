@@ -27,7 +27,7 @@ export default function SignupPage() {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://rozgarseva.onrender.com/api/users', formData);
+      const response = await axios.post('http://localhost:8080/api/users', formData);
       const token = response.data.token;
       localStorage.setItem('token', token);
       

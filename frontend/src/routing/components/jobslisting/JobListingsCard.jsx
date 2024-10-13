@@ -87,7 +87,7 @@ export default function UserJobListings() {
   useEffect(() => {
     const getUserJobs = async () => {
       try {
-        const response = await axios.get(`https://rozgarseva.onrender.com/api/jobs/${userId}`);
+        const response = await axios.get(`http://localhost:8080/api/jobs/${userId}`);
         
         setJob(response.data);
       } catch (error) {

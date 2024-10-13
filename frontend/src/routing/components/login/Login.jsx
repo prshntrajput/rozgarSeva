@@ -5,11 +5,18 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 export default function LoginPage() {
+
+
+
+
+ 
   //defining state
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
+ 
+
 
   const [error, setError] = useState();
 
@@ -27,7 +34,7 @@ export default function LoginPage() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://rozgarseva.onrender.com/api/login', formData);
+      const response = await axios.post("http://localhost:8080/api/login", formData);
       localStorage.setItem("token", response.data.token);
       
      

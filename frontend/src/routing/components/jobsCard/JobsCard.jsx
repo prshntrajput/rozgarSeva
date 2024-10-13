@@ -38,7 +38,7 @@ const JobsHomePage = () => {
   useEffect(()=>{
     const jobList= async ()=>{
     try {
-      const response = await axios.get("https://rozgarseva.onrender.com/api/jobs");
+      const response = await axios.get("http://localhost:8080/api/jobs");
       setJobData(response.data)
       
       
