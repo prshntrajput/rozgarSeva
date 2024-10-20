@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import { Briefcase, User, FileText, Phone, MapPin, Tag } from 'lucide-react';
+import { useDispatch, useSelector } from 'react-redux';
+import {  postJob } from '../../../store/actions/JobAction/JobDataAction';
+import { updateJobData } from '../../../store/reducers/JobReducer/JobDataReducer';
+import { useNavigate } from 'react-router-dom';
 
 const JobListingForm = () => {
-  const [jobData, setJobData] = useState({
+ {/**  const [jobData, setJobData] = useState({
     projectName: '',
     projectOwnerName: '',
     jobDescription: '',
@@ -23,8 +27,19 @@ const JobListingForm = () => {
       [e.target.name]: e.target.value,
     });
   };
+  **/}
+  
+   
 
-  const handleSubmit = async (e) => {
+  const dispatch = useDispatch();
+ const {jobData,message,error,loading} = useSelector((state)=>state.JobDataReducer);
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    dispatch(updateJobData({ name: e.target.name, value: e.target.value }));
+  };
+
+  {/**const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
 
@@ -50,6 +65,20 @@ const JobListingForm = () => {
       console.error(error.response ? error.response.data : error.message);
       setMessage(error.response ? error.response.data : 'Something went wrong!');
     }
+  };
+**/}
+
+ const handleSubmit = (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      dispatch(updateJobData({ message: 'You need to be logged in to post a job.' }));
+      return;
+    }
+
+    dispatch(postJob({ jobData, token }));
+    navigate("/jobs")
   };
 
   return (
@@ -85,7 +114,7 @@ const JobListingForm = () => {
             </motion.p>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit}  className="space-y-6">
             <InputField
               icon={<Briefcase className="h-5 w-5 text-gray-400" />}
               label="Project Name"
@@ -144,7 +173,7 @@ const JobListingForm = () => {
               name="pincode"
             
               value={jobData.pincode}
-              onChange={handleChange}
+               onChange={handleChange}
             />
 
             <InputField

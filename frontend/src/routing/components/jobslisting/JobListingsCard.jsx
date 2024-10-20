@@ -4,6 +4,8 @@ import axios from 'axios';
 import { motion } from 'framer-motion';
 import { Briefcase, MapPin, Calendar, Users, Edit, User } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUserJobs } from '../../../store/actions/UserJobAction/UserJobAction';
 
 function JobListingCard({ job, index, userId }) {
 
@@ -74,9 +76,12 @@ function JobListingCard({ job, index, userId }) {
 
 export default function UserJobListings() {
   const [userId, setUserId] = useState();
-  const [jobs, setJob] = useState([]);
+  {/**const [jobs, setJob] = useState([]);**/}
 
-  useEffect(() => {
+   const { userJobs, loading, error } = useSelector((state) => state.UserJobReducer);
+   const dispatch = useDispatch();
+
+    useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
       const decodedToken = jwtDecode(token);
@@ -84,7 +89,13 @@ export default function UserJobListings() {
     }
   }, []);
 
-  useEffect(() => {
+   useEffect(() => {
+    if (userId) {
+      dispatch(fetchUserJobs(userId));  // Dispatch action to fetch jobs
+    }
+  }, [userId, dispatch]);
+
+  {/**useEffect(() => {
     const getUserJobs = async () => {
       try {
         const response = await axios.get(`http://localhost:8080/api/jobs/${userId}`);
@@ -97,7 +108,7 @@ export default function UserJobListings() {
     if (userId) {
       getUserJobs();
     }
-  }, [userId]);
+  }, [userId]);**/}
 
   return (
     <motion.div
@@ -123,11 +134,11 @@ export default function UserJobListings() {
           transition={{ delay: 0.2, duration: 0.5 }}
           className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
         >
-          {jobs.map((job, index) => (
+          {userJobs.map((job, index) => (
             <JobListingCard key={job._id} job={job} index={index} userId={userId} />
           ))}
         </motion.div>
-        {jobs.length === 0 && (
+        {userJobs.length === 0 && (
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

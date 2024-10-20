@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { MapPin, Calendar, ChevronRight, Briefcase, CircleUserRound, User  } from 'lucide-react'
 import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux';
+import { asyncgetJobs } from '../../../store/actions/JobAction/JobAction';
 
 /**const jobsData = [
   {
@@ -34,8 +36,12 @@ const JobsHomePage = () => {
  
 
   const [jobData,setJobData]= useState([]);
+
+  const { jobs } = useSelector((state)=> state.JobReducer)
+  const dispatch = useDispatch();
   
-  useEffect(()=>{
+  
+  {/**useEffect(()=>{
     const jobList= async ()=>{
     try {
       const response = await axios.get("http://localhost:8080/api/jobs");
@@ -46,7 +52,14 @@ const JobsHomePage = () => {
       console.log(error.message)
     }}
     jobList();
-  },[])
+  },[]);
+**/}
+
+  useEffect(()=>{
+    dispatch(asyncgetJobs());
+  })
+
+  
 
 
   return (
@@ -60,7 +73,7 @@ const JobsHomePage = () => {
         Exciting Job Opportunities
       </motion.h1>
       <div className="max-w-7xl mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {jobData.map((job, index) => (
+        {jobs.map((job, index) => (
           <JobCard key={job.id} job={job} index={index} />
         ))}
       </div>

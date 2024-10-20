@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link, useNavigate } from "react-router-dom"
-import { Menu, Globe, ChevronUp } from 'lucide-react'
+import { Menu, Globe, ChevronUp, Briefcase, Search, Users } from 'lucide-react';
+import  carpantedImage  from "../assets/carpanter.jpg"
 
 const content = {
   en: {
@@ -18,17 +19,17 @@ const content = {
       {
         title: 'Local Opportunities',
         description: 'Find jobs near you and reduce your commute time',
-        icon: '🏙️'
+        icon: <Briefcase className="w-8 h-8 text-blue-500" />
       },
       {
         title: 'Diverse Job Listings',
         description: 'Explore a wide range of job categories and industries',
-        icon: '🌐'
+        icon: <Search className="w-8 h-8 text-green-500" />
       },
       {
         title: 'Career Growth',
         description: 'Discover opportunities to advance your career',
-        icon: '📈'
+        icon: <Users className="w-8 h-8 text-purple-500" />
       },
     ],
     cta: {
@@ -51,17 +52,17 @@ const content = {
       {
         title: 'स्थानीय अवसर',
         description: 'अपने पास नौकरियाँ खोजें और अपने यात्रा समय को कम करें',
-        icon: '🏙️'
+        icon: <Briefcase className="w-8 h-8 text-blue-500" />
       },
       {
         title: 'विविध नौकरी सूचियाँ',
         description: 'नौकरी श्रेणियों और उद्योगों की एक विस्तृत श्रृंखला का अन्वेषण करें',
-        icon: '🌐'
+        icon: <Search className="w-8 h-8 text-green-500" />
       },
       {
         title: 'कैरियर विकास',
         description: 'अपने करियर को आगे बढ़ाने के अवसरों की खोज करें',
-        icon: '📈'
+        icon: <Users className="w-8 h-8 text-purple-500" />
       },
     ],
     cta: {
@@ -72,7 +73,7 @@ const content = {
   },
 }
 
-export default function LandingPage() {
+export default function Component() {
   const [scrollY, setScrollY] = useState(0)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [language, setLanguage] = useState('en')
@@ -98,12 +99,12 @@ export default function LandingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-orange-100 to-orange-200 overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-indigo-100 overflow-hidden">
       <div className="shiny-overlay"></div>
       <header className="sticky top-0 z-50 bg-white shadow-md">
         <nav className="container mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
           <motion.h1 
-            className="text-2xl sm:text-3xl font-bold text-orange-600"
+            className="text-2xl sm:text-3xl font-bold text-blue-600"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -114,14 +115,14 @@ export default function LandingPage() {
             <NavLinks language={language} />
             <button 
               onClick={toggleLanguage}
-              className="text-sm text-gray-600 hover:text-orange-600 transition-colors flex items-center"
+              className="text-sm text-gray-600 hover:text-blue-600 transition-colors flex items-center"
             >
               <Globe className="w-4 h-4 mr-1" />
               {language === 'en' ? 'हिंदी' : 'English'}
             </button>
           </div>
           <button 
-            className="sm:hidden text-gray-600 hover:text-orange-600 transition-colors"
+            className="sm:hidden text-gray-600 hover:text-blue-600 transition-colors"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <Menu />
@@ -139,7 +140,7 @@ export default function LandingPage() {
               <NavLinks language={language} className="flex flex-col items-center space-y-2" />
               <button 
                 onClick={toggleLanguage}
-                className="mt-2 text-sm text-gray-600 hover:text-orange-600 transition-colors flex items-center justify-center w-full"
+                className="mt-2 text-sm text-gray-600 hover:text-blue-600 transition-colors flex items-center justify-center w-full"
               >
                 <Globe className="w-4 h-4 mr-1" />
                 {language === 'en' ? 'हिंदी में देखें' : 'View in English'}
@@ -151,13 +152,44 @@ export default function LandingPage() {
 
       <main className="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <motion.section 
-          className="text-center mb-12 sm:mb-16"
+          className="text-center mb-12 sm:mb-16 relative"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-4">{content[language].hero.title}</h2>
           <p className="text-lg sm:text-xl text-gray-600 mb-6 sm:mb-8">{content[language].hero.subtitle}</p>
+          <motion.img
+            src={carpantedImage}
+            height={carpantedImage ? 200 : 100} 
+           width={carpantedImage ? 200 : 100}
+            alt="Animated job search"
+            className="absolute top-0 left-0 w-16 h-16 sm:w-24 sm:h-24"
+            animate={{
+              y: [0, -10, 0],
+              rotate: [0, 5, -5, 0],
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              repeatType: "reverse",
+            }}
+          />
+          <motion.img
+            src="/placeholder.svg?height=200&width=200"
+            alt="Animated career growth"
+            className="absolute bottom-0 right-0 w-16 h-16 sm:w-24 sm:h-24"
+            animate={{
+              y: [0, 10, 0],
+              rotate: [0, -5, 5, 0],
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              repeatType: "reverse",
+              delay: 0.5,
+            }}
+          />
         </motion.section>
 
         <motion.section 
@@ -177,7 +209,7 @@ export default function LandingPage() {
         </motion.section>
 
         <motion.section 
-          className="text-center"
+          className="text-center relative"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.7 }}
@@ -185,12 +217,26 @@ export default function LandingPage() {
           <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">{content[language].cta.title}</h3>
           <motion.button 
             onClick={handleGetStarted}
-            className="bg-orange-500 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-full text-base sm:text-lg font-semibold hover:bg-orange-600 transition-colors"
+            className="bg-blue-500 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-full text-base sm:text-lg font-semibold hover:bg-blue-600 transition-colors"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             {content[language].cta.button}
           </motion.button>
+          <motion.img
+            src="/placeholder.svg?height=200&width=200"
+            alt="Animated job offer"
+            className="absolute top-1/2 left-1/4 transform -translate-y-1/2 w-12 h-12 sm:w-16 sm:h-16"
+            animate={{
+              scale: [1, 1.1, 1],
+              rotate: [0, 10, -10, 0],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              repeatType: "reverse",
+            }}
+          />
         </motion.section>
       </main>
 
@@ -203,7 +249,7 @@ export default function LandingPage() {
       <AnimatePresence>
         {scrollY > 100 && (
           <motion.div 
-            className="fixed bottom-4 right-4 bg-orange-500 text-white p-3 sm:p-4 rounded-full cursor-pointer"
+            className="fixed bottom-4 right-4 bg-blue-500 text-white p-3 sm:p-4 rounded-full cursor-pointer"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
@@ -252,7 +298,7 @@ function NavLinks({ language, className = "space-x-4" }) {
         <Link 
           key={index} 
           to={item.href} 
-          className="text-gray-600 hover:text-orange-600 transition-colors"
+          className="text-gray-600 hover:text-blue-600 transition-colors"
         >
           {item.name}
         </Link>
@@ -268,7 +314,7 @@ function FeatureCard({ icon, title, description }) {
       whileHover={{ scale: 1.05 }}
       transition={{ type: "spring", stiffness: 300 }}
     >
-      <div className="text-4xl mb-3 sm:mb-4">{icon}</div>
+      <div className="mb-3 sm:mb-4">{icon}</div>
       <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2">{title}</h3>
       <p className="text-sm sm:text-base text-gray-600">{description}</p>
     </motion.div>
